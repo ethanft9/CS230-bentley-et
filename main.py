@@ -160,7 +160,7 @@ def main():
         st.text("="*15 + f"{country}" + "="*15)
         st.image(str(country[1:]) + '.jpg', width=300) ##images should be stored within same folder as main python file
         st.write(f'{country} has {frequency} skyscrapper(s) in the list! Wow!')
-        st.write(f"{country}'s skyscrappers has an average height of {avg_height:.2f} in its skyscrappers.")
+        st.write(f"{country}'s skyscrappers has an average height of {avg_height:.2f}m in its skyscrappers.")
 
     elif page == 'Comps':
         ##Compares heights of skyscrappers

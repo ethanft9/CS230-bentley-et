@@ -40,7 +40,7 @@ def countries(data):
 allcountries = countries(overalldata)
 #print(allcountries)
 
-def freq_data(data, count_item, value):
+def freq_data(data, value, count_item = 'Country'):
     freq = 0
     index = columns.index(count_item)
     for i in range(len(data)):
@@ -134,7 +134,7 @@ def main():
     heightdatadict = height_data(overalldata, skyscrapperslist)
     bar_skyscrapper_dict = {}
 
-    page = st.sidebar.selectbox("Choose a page: ", ['Homepage', 'Country', 'Map', 'Comps', 'US Skyscrappers'])
+    page = st.sidebar.selectbox("Choose a page: ", ['Homepage', 'Country', 'Comps', 'US Skyscrappers'])
 
     if page == 'Homepage':
         st.title('Skyscrappers around the world')
@@ -154,13 +154,13 @@ def main():
         ##Tells users how many skyscrappers are in this country and average height
         st.header("Country Skyscrapper Profile")
         country = st.radio("Please select a country from the list:", allcountries)
-        frequency = freq_data(overalldata, 'Country', country)
+        frequency = freq_data(overalldata, country)
         height_List = append_data(overalldata, 'Country', country, 'Metres')
         avg_height = npy.mean(height_List)
         st.text("="*15 + f"{country}" + "="*15)
         st.image(str(country[1:]) + '.jpg', width=300) ##images should be stored within same folder as main python file
         st.write(f'{country} has {frequency} skyscrapper(s) in the list! Wow!')
-        st.write(f"{country}'s skyscrappers has an average height of {avg_height} in its skyscrappers.")
+        st.write(f"{country}'s skyscrappers has an average height of {avg_height:.2f} in its skyscrappers.")
 
     elif page == 'Comps':
         ##Compares heights of skyscrappers
@@ -172,6 +172,10 @@ def main():
                 bar_skyscrapper_dict.update({comp: heightdatadict[comp]})
         #print(bar_skyscrapper_dict)
         st.pyplot(bar_chart(bar_skyscrapper_dict))
+
+        #freq_data function which uses non-default value
+        chimney = freq_data(overalldata, "Chimney", "Type")
+        st.write(f'Out of all the tall buildings, {chimney} are Chimneys.')
 
     else:
         ##Other interesting facts
